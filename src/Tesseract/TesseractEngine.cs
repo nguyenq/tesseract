@@ -14,7 +14,7 @@ namespace Tesseract
     /// </summary>
     public class TesseractEngine : DisposableBase
     {
-        private const string TesseractVersion = "4.00.00";
+        private const string TesseractVersion = "5.00.00";
         private static readonly TraceSource trace = new TraceSource("Tesseract");
 
         private HandleRef handle;

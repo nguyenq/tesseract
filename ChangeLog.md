@@ -1,4 +1,12 @@
-﻿### Version 3.2.0
+﻿### Version 5.0.0
+
+* Updated to Tesseract 5.00.0
+
+### Version 4.0.0
+
+* Updated to Tesseract 4.00.0
+
+### Version 3.2.0
 
 * Support for .Net Standard 2.0 (.net Core 2) - [Issue ]()
 * Removed support for TESSDATA environment variable 

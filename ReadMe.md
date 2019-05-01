@@ -1,11 +1,11 @@
-A .NET wrapper for [tesseract-ocr] 4.00.
+A .NET wrapper for [tesseract-ocr] 5.00.
 
 ## Dependencies
 
-### Visual Studio 2015 x86 and x64 Runtimes 
+### Visual Studio 2017 x86 and x64 Runtimes 
 
-Since tesseract and leptonica binaries are compiled with Visual Studio 2015 you'll need to ensure you have the 
-[Visual Studio 2015 Runtime][vs-runtime] installed.
+Since tesseract and leptonica binaries are compiled with Visual Studio 2017 you'll need to ensure you have the 
+[Visual Studio 2017 Runtime][vs-runtime] installed.
 
 ### Tesseract language data
 
@@ -14,7 +14,7 @@ You will also need to download the language data files for tesseract 4.00 from [
 ## Getting started quickly
 
 1. Add the ``Tesseract`` NuGet Package by running ``Install-Package Tesseract`` from the [Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console).
-2. Ensure you have Visual Studio 2015 x86 & x64 runtimes installed (see note above).
+2. Ensure you have Visual Studio 2017 x86 & x64 runtimes installed (see note above).
 3. Download language data files for tesseract 4.00 from the [tessdata repository](https://github.com/tesseract-ocr/tessdata_fast) and add them to your project, 
    ensure 'Copy to output directory' is set to Always.
 4. Check out the Samples solution ``~/src/Tesseract.Samples.sln`` in the [tesseract-samples](https://github.com/charlesw/tesseract-samples) repository for a working example.
@@ -71,4 +71,4 @@ Also thanks to the following projects\resources without which this project would
 
 [apache2]: http://www.apache.org/licenses/LICENSE-2.0
 [tesseract-ocr]: https://github.com/tesseract-ocr/tesseract
-[vs-runtime]: https://www.microsoft.com/en-us/download/details.aspx?id=48145
+[vs-runtime]: https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads
