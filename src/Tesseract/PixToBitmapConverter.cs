@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#if SYSTEM_DRAWING_SUPPORT
+
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Text;
 using SD = System.Drawing;
+
 namespace Tesseract
 {
     public class PixToBitmapConverter
@@ -13,6 +14,10 @@ namespace Tesseract
             var pixelFormat = GetPixelFormat(pix);
             var depth = pix.Depth;
             var img = new Bitmap(pix.Width, pix.Height, pixelFormat);
+            if (pix.XRes > 1 && pix.YRes > 1)
+            {
+                img.SetResolution(pix.XRes, pix.YRes);
+            }
 
             BitmapData imgData = null;
             PixData pixData = null;
@@ -133,7 +138,7 @@ namespace Tesseract
             if (colormap != null && colormap.Count <= maxColors) {
                 var colormapCount = colormap.Count;
                 for (int i = 0; i < colormapCount; i++) {
-                    pallete.Entries[i] = (SD.Color)colormap[i];
+                    pallete.Entries[i] = colormap[i].ToColor();
                 }
             } else {
                 for (int i = 0; i < maxColors; i++) {
@@ -160,3 +165,5 @@ namespace Tesseract
         }
     }
 }
+
+#endif

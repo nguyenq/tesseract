@@ -1,4 +1,51 @@
-﻿### Version 3.1.0
+﻿### Version 4.1.1
+
+* Upgraded to Tesseract 4.1.1 [Issue 528](https://github.com/charlesw/tesseract/issues/528)
+* Fixed Interop.TessApi.BaseApiGetVersion [Issue 522](https://github.com/charlesw/tesseract/issues/522)
+
+#### Known issues
+
+* Setting regions of interest doesn't work [Issue 489](https://github.com/charlesw/tesseract/issues/489)
+* PageSegMode.SingleBlockVertText does not work [Issue 490](https://github.com/charlesw/tesseract/issues/490)
+
+### Version 4.1.0
+
+Note: As of version 4.1.0 this wrapper will now match Tesseract's version to the first two numbers 
+(Major.Minor) with the last number (Patch) reserved for changes in the wrapper. This is to avoid 
+confusion with what version of tesseract is used. This does that semantic versioning is no longer 
+used however breaking changes will be kept to the absolute minimum, even between major tesseract 
+releases, and clearly denoted here if they are required.
+
+* Updated to Tesseract 4.1.0  [Issue 321](https://github.com/charlesw/tesseract/issues/321)
+* Support integration with System.Drawing in .net core using Tesseract.Drawing [#477](https://github.com/charlesw/tesseract/issues/477)
+
+#### Breaking Changes
+
+* Requires VC++ 2019 runtime
+* Dropped support for .net framework 2.0 [491](https://github.com/charlesw/tesseract/issues/491)
+
+#### Known issues
+
+* Setting regions of interest doesn't work [Issue 489](https://github.com/charlesw/tesseract/issues/489)
+* PageSegMode.SingleBlockVertText does not work [Issue 490](https://github.com/charlesw/tesseract/issues/490)
+
+### Version 4.0.0 (never officially released)
+
+* Updated to Tesseract 4.0.0 [Issue 321](https://github.com/charlesw/tesseract/issues/321)
+* Requires VC++ 2017 runtime
+
+### Version 3.2.0
+
+* Support for .Net Standard 2.0 (.net Core 2) - [Issue 298](https://github.com/charlesw/tesseract/issues/298)
+* Removed support for TESSDATA environment variable 
+* Added support for the renderer api (generation of PDF, Text, etc) - [Issue 193](https://github.com/charlesw/tesseract/issues/193) 
+* Added support for the multiple renderers - [Issue 297](https://github.com/charlesw/tesseract/issues/297) 
+* Updated to Tesseract 3.05.2 - [Issue #340](https://github.com/charlesw/tesseract/issues/340)
+* Added support Adding pix to, Removing pix from, and clearing PixA - [Issue #340](https://github.com/charlesw/tesseract/issues/340)
+* Fixed PolyBlockType definition - [Issue #280](https://github.com/charlesw/tesseract/issues/280)
+* Added support for Font attributes to Result Iterator - [Issue #9](https://github.com/charlesw/tesseract/issues/9)
+
+### Version 3.1.0
 
 * Support for printing list of available variables - [Issue 256](https://github.com/charlesw/tesseract/issues/256)
 * Support for line removal - [Issue 268](https://github.com/charlesw/tesseract/issues/256)

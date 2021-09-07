@@ -6,7 +6,7 @@ using Tesseract.Internal;
 
 namespace Tesseract
 {
-    public unsafe sealed class Pix : DisposableBase
+    public unsafe sealed class Pix : DisposableBase, IEquatable<Pix>
     {
         #region Constants
 
@@ -28,15 +28,15 @@ namespace Tesseract
         /// Used to lookup image formats by extension.
         /// </summary>
         private static readonly Dictionary<string, ImageFormat> imageFomatLookup = new Dictionary<string, ImageFormat>
-		{
-			{ ".jpg", ImageFormat.JfifJpeg },
-			{ ".jpeg", ImageFormat.JfifJpeg },
-			{ ".gif", ImageFormat.Gif },
-			{ ".tif", ImageFormat.Tiff },
-			{ ".tiff", ImageFormat.Tiff },
-			{ ".png", ImageFormat.Png },
-			{ ".bmp", ImageFormat.Bmp }
-		};
+        {
+            { ".jpg", ImageFormat.JfifJpeg },
+            { ".jpeg", ImageFormat.JfifJpeg },
+            { ".gif", ImageFormat.Gif },
+            { ".tif", ImageFormat.Tiff },
+            { ".tiff", ImageFormat.Tiff },
+            { ".png", ImageFormat.Png },
+            { ".bmp", ImageFormat.Bmp }
+        };
 
         #endregion Constants
 
@@ -106,6 +106,20 @@ namespace Tesseract
             return Create(pixHandle);
         }
 
+        public static Pix LoadFromMemory(byte[] bytes)
+        {
+	        IntPtr handle;
+	        fixed (byte* ptr = bytes)
+	        {
+		        handle = Interop.LeptonicaApi.Native.pixReadMem(ptr, bytes.Length);
+	        }
+	        if (handle == IntPtr.Zero)
+	        {
+		        throw new IOException("Failed to load image from memory.");
+	        }
+	        return Create(handle);
+		}
+
         public static Pix LoadTiffFromMemory(byte[] bytes)
         {
             IntPtr handle;
@@ -161,6 +175,18 @@ namespace Tesseract
             get { return width; }
         }
 
+        public int XRes
+        {
+            get { return Interop.LeptonicaApi.Native.pixGetXRes(this.handle); }
+            set { Interop.LeptonicaApi.Native.pixSetXRes(this.handle, value); }
+        }
+
+        public int YRes
+        {
+            get { return Interop.LeptonicaApi.Native.pixGetYRes(this.handle); }
+            set { Interop.LeptonicaApi.Native.pixSetYRes(this.handle, value); }
+        }
+
         internal HandleRef Handle
         {
             get { return handle; }
@@ -172,6 +198,34 @@ namespace Tesseract
         }
 
         #endregion Properties
+
+        #region Equals
+
+        public override bool Equals(object obj)
+        {
+            // Check for null values and compare run-time types.
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            return Equals((Pix)obj);
+        }
+
+        public bool Equals(Pix other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            int same;
+            if(Interop.LeptonicaApi.Native.pixEqual(Handle, other.Handle, out same) != 0)
+            {
+                throw new TesseractException("Failed to compare pix");
+            }
+            return same != 0;
+        }
+
+        #endregion
 
         #region Save methods
 
@@ -498,6 +552,71 @@ namespace Tesseract
         }
 
         /// <summary>
+        /// HMT (with just misses) for speckle up to 2x2
+        /// "oooo"
+        /// "oC o"
+        /// "o  o"
+        /// "oooo"
+        /// </summary>
+        public const string SEL_STR2 = "oooooC oo  ooooo";
+
+        /// <summary>
+        /// HMT (with just misses) for speckle up to 3x3
+        /// "oC  o"
+        /// "o   o"
+        /// "o   o"
+        /// "ooooo"
+        /// </summary>
+        public const string SEL_STR3 = "ooooooC  oo   oo   oooooo";
+
+        /// <summary>
+        /// Reduces speckle noise in image. The algorithm is based on Leptonica
+        /// <code>speckle_reg.c</code> example demonstrating morphological method of
+        /// removing speckle.
+        /// </summary>
+        /// <param name="selStr">hit-miss sels in 2D layout; SEL_STR2 and SEL_STR3 are predefined values</param>
+        /// <param name="selSize">2 for 2x2, 3 for 3x3</param>
+        /// <returns></returns>
+        public Pix Despeckle(string selStr, int selSize)
+        {
+            IntPtr pix1, pix2, pix3;
+            IntPtr pix4, pix5, pix6;
+            IntPtr sel1, sel2;
+
+            /*  Normalize for rapidly varying background */
+            pix1 = Interop.LeptonicaApi.Native.pixBackgroundNormFlex(handle, 7, 7, 1, 1, 10);
+
+            /* Remove the background */
+            pix2 = Interop.LeptonicaApi.Native.pixGammaTRCMasked(new HandleRef(this, IntPtr.Zero), new HandleRef(this, pix1), new HandleRef(this, IntPtr.Zero), 1.0f, 100, 175);
+            
+            /* Binarize */
+            pix3 = Interop.LeptonicaApi.Native.pixThresholdToBinary(new HandleRef(this, pix2), 180);
+
+            /* Remove the speckle noise up to selSize x selSize */
+            sel1 = Interop.LeptonicaApi.Native.selCreateFromString(selStr, selSize + 2, selSize + 2, "speckle" + selSize);
+            pix4 = Interop.LeptonicaApi.Native.pixHMT(new HandleRef(this, IntPtr.Zero), new HandleRef(this, pix3), new HandleRef(this, sel1));
+            sel2 = Interop.LeptonicaApi.Native.selCreateBrick(selSize, selSize, 0, 0, SelType.SEL_HIT);
+            pix5 = Interop.LeptonicaApi.Native.pixDilate(new HandleRef(this, IntPtr.Zero), new HandleRef(this, pix4), new HandleRef(this, sel2));
+            pix6 = Interop.LeptonicaApi.Native.pixSubtract(new HandleRef(this, IntPtr.Zero), new HandleRef(this, pix3), new HandleRef(this, pix5));
+
+            Interop.LeptonicaApi.Native.selDestroy(ref sel1);
+            Interop.LeptonicaApi.Native.selDestroy(ref sel2);
+
+            Interop.LeptonicaApi.Native.pixDestroy(ref pix1);
+            Interop.LeptonicaApi.Native.pixDestroy(ref pix2);
+            Interop.LeptonicaApi.Native.pixDestroy(ref pix3);
+            Interop.LeptonicaApi.Native.pixDestroy(ref pix4);
+            Interop.LeptonicaApi.Native.pixDestroy(ref pix5);
+
+            if (pix6 == IntPtr.Zero)
+            {
+                throw new TesseractException("Failed to despeckle image.");
+            }
+
+            return new Pix(pix6);
+        }
+
+        /// <summary>
         /// Determines the scew angle and if confidence is high enough returns the descewed image as the result, otherwise returns clone of original image.
         /// </summary>
         /// <remarks>
@@ -587,22 +706,22 @@ namespace Tesseract
         /// Please note there is an implicit assumption about RGB component ordering.
         /// </para>
         /// </remarks>
-        /// <param name="angle">The angle to rotate by, in radians; clockwise is positive.</param>
+        /// <param name="angleInRadians">The angle to rotate by, in radians; clockwise is positive.</param>
         /// <param name="method">The rotation method to use.</param>
         /// <param name="fillColor">The fill color to use for pixels that are brought in from the outside.</param>
         /// <param name="width">The original width; use 0 to avoid embedding</param>
         /// <param name="height">The original height; use 0 to avoid embedding</param>
         /// <returns>The image rotated around it's centre.</returns>
-        public Pix Rotate(float angle, RotationMethod method = RotationMethod.AreaMap, RotationFill fillColor = RotationFill.White, int? width = null, int? height = null)
+        public Pix Rotate(float angleInRadians, RotationMethod method = RotationMethod.AreaMap, RotationFill fillColor = RotationFill.White, int? width = null, int? height = null)
         {
             if (width == null) width = this.Width;
             if (height == null) height = this.Height;
 
-            if (Math.Abs(angle) < VerySmallAngle) return this.Clone();
+            if (Math.Abs(angleInRadians) < VerySmallAngle) return this.Clone();
 
             IntPtr resultHandle;
 
-            var rotations = 2 * angle / Math.PI;
+            var rotations = 2 * angleInRadians / Math.PI;
             if (Math.Abs(rotations - Math.Floor(rotations)) < VerySmallAngle)
             {
                 // handle special case of orthoganal rotations (90, 180, 270)
@@ -611,7 +730,7 @@ namespace Tesseract
             else
             {
                 // handle general case
-                resultHandle = Interop.LeptonicaApi.Native.pixRotate(handle, angle, method, fillColor, width.Value, height.Value);
+                resultHandle = Interop.LeptonicaApi.Native.pixRotate(handle, angleInRadians, method, fillColor, width.Value, height.Value);
             }
 
             if (resultHandle == IntPtr.Zero) throw new LeptonicaException("Failed to rotate image around its centre.");
@@ -768,7 +887,6 @@ namespace Tesseract
         #endregion
 
         #region Disposal
-
 
         protected override void Dispose(bool disposing)
         {

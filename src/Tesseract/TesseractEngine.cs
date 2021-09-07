@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Security;
 using Tesseract.Internal;
+using Tesseract.Interop;
 
 namespace Tesseract
 {
@@ -19,9 +19,6 @@ namespace Tesseract
         private HandleRef handle;
 
         private int processCount = 0;
-
-        public const int TRUE = 1;
-        public const int FALSE = 0;
 
         /// <summary>
         /// Creates a new instance of <see cref="TesseractEngine"/> using the <see cref="EngineMode.Default"/> mode.
@@ -192,9 +189,7 @@ namespace Tesseract
             {
                 // Get version doesn't work for x64, might be compilation related for now just
                 // return constant so we don't crash.
-                return "3.03";
-
-                // return Interop.TessApi.Native.GetVersion();
+                return TessApi.BaseApiGetVersion();
             }
         }
 
@@ -276,115 +271,7 @@ namespace Tesseract
             page.Disposed += OnIteratorDisposed;
             return page;
         }
-
-        /// <summary>
-        /// Process the specified bitmap image.
-        /// </summary>
-        /// <remarks>
-        /// Please consider <see cref="Process(Pix, PageSegMode?)"/> instead. This is because
-        /// this method must convert the bitmap to a pix for processing which will add additional overhead.
-        /// Leptonica also supports a large number of image pre-processing functions as well.
-        /// </remarks>
-        /// <param name="image">The image to process.</param>
-        /// <param name="pageSegMode">The page segmentation mode.</param>
-        /// <returns></returns>
-        public Page Process(Bitmap image, PageSegMode? pageSegMode = null)
-        {
-            return Process(image, new Rect(0, 0, image.Width, image.Height), pageSegMode);
-        }
-
-        /// <summary>
-        /// Process the specified bitmap image.
-        /// </summary>
-        /// <remarks>
-        /// Please consider <see cref="Process(Pix, String, PageSegMode?)"/> instead. This is because
-        /// this method must convert the bitmap to a pix for processing which will add additional overhead.
-        /// Leptonica also supports a large number of image pre-processing functions as well.
-        /// </remarks>
-        /// <param name="image">The image to process.</param>
-        /// <param name="inputName">Sets the input file's name, only needed for training or loading a uzn file.</param>
-        /// <param name="pageSegMode">The page segmentation mode.</param>
-        /// <returns></returns>
-        public Page Process(Bitmap image, string inputName, PageSegMode? pageSegMode = null)
-        {
-            return Process(image, inputName, new Rect(0, 0, image.Width, image.Height), pageSegMode);
-        }
-
-        /// <summary>
-        /// Process the specified bitmap image.
-        /// </summary>
-        /// <remarks>
-        /// Please consider <see cref="TesseractEngine.Process(Pix, Rect, PageSegMode?)"/> instead. This is because
-        /// this method must convert the bitmap to a pix for processing which will add additional overhead.
-        /// Leptonica also supports a large number of image pre-processing functions as well.
-        /// </remarks>
-        /// <param name="image">The image to process.</param>
-        /// <param name="region">The region of the image to process.</param>
-        /// <param name="pageSegMode">The page segmentation mode.</param>
-        /// <returns></returns>
-        public Page Process(Bitmap image, Rect region, PageSegMode? pageSegMode = null)
-        {
-            return Process(image, null, region, pageSegMode);
-        }
-
-        /// <summary>
-        /// Process the specified bitmap image.
-        /// </summary>
-        /// <remarks>
-        /// Please consider <see cref="TesseractEngine.Process(Pix, String, Rect, PageSegMode?)"/> instead. This is because
-        /// this method must convert the bitmap to a pix for processing which will add additional overhead.
-        /// Leptonica also supports a large number of image pre-processing functions as well.
-        /// </remarks>
-        /// <param name="image">The image to process.</param>
-        /// <param name="inputName">Sets the input file's name, only needed for training or loading a uzn file.</param>
-        /// <param name="region">The region of the image to process.</param>
-        /// <param name="pageSegMode">The page segmentation mode.</param>
-        /// <returns></returns>
-        public Page Process(Bitmap image, string inputName, Rect region, PageSegMode? pageSegMode = null)
-        {
-            var pix = PixConverter.ToPix(image);
-            var page = Process(pix, inputName, region, pageSegMode);
-            new PageDisposalHandle(page, pix);
-            return page;
-        }
-
-        /// <summary>
-        /// Get segmented regions at specified page iterator level.
-        /// </summary>
-        /// <param name="image">input image</param>
-        /// <param name="pageIteratorLevel">PageIteratorLevel enum</param>
-        /// <returns></returns>
-        public List<Rectangle> GetSegmentedRegions(Bitmap image, PageIteratorLevel pageIteratorLevel)
-        {
-            using (var pix = PixConverter.ToPix(image))
-            {
-                Interop.TessApi.Native.BaseApiSetImage(handle, pix.Handle);
-
-                var boxArray = Interop.TessApi.Native.BaseAPIGetComponentImages(handle, pageIteratorLevel, TRUE, IntPtr.Zero, IntPtr.Zero);
-                int boxCount = Interop.LeptonicaApi.Native.boxaGetCount(new HandleRef(this, boxArray));
-                
-                List<Rectangle> boxList = new List<Rectangle>();
-
-                for (int i = 0; i < boxCount; i++)
-                {
-                    var box = Interop.LeptonicaApi.Native.boxaGetBox(new HandleRef(this, boxArray), i, PixArrayAccessType.Clone);
-                    if (box == IntPtr.Zero)
-                    {
-                        continue;
-                    }
-
-                    int px, py, pw, ph;
-                    Interop.LeptonicaApi.Native.boxGetGeometry(new HandleRef(this, box), out px, out py, out pw, out ph);
-                    boxList.Add(new Rectangle(px, py, pw, ph));
-                    Interop.LeptonicaApi.Native.boxDestroy(ref box);
-                }
-
-                Interop.LeptonicaApi.Native.boxaDestroy(ref boxArray);
-
-                return boxList;
-            }
-        }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (handle.Handle != IntPtr.Zero)
@@ -409,7 +296,6 @@ namespace Tesseract
 
         private void Initialise(string datapath, string language, EngineMode engineMode, IEnumerable<string> configFiles, IDictionary<string, object> initialValues, bool setOnlyNonDebugVariables)
         {
-            const string TessDataDirectory = "tessdata";
             Guard.RequireNotNullOrEmpty("language", language);
 
             // do some minor processing on datapath to fix some common errors (this basically mirrors what tesseract does as of 3.04)
@@ -422,11 +308,6 @@ namespace Tesseract
                 if (datapath.EndsWith("\\", StringComparison.Ordinal) || datapath.EndsWith("/", StringComparison.Ordinal))
                 {
                     datapath = datapath.Substring(0, datapath.Length - 1);
-                }
-                // remove 'tessdata', if it exists, tesseract will add it when building up the tesseract path
-                if (datapath.EndsWith("tessdata", StringComparison.OrdinalIgnoreCase))
-                {
-                    datapath = datapath.Substring(0, datapath.Length - TessDataDirectory.Length);
                 }
             }
 
@@ -443,7 +324,7 @@ namespace Tesseract
         /// <summary>
         /// Ties the specified pix to the lifecycle of a page.
         /// </summary>
-        private class PageDisposalHandle
+        public class PageDisposalHandle
         {
             private readonly Page page;
             private readonly Pix pix;
