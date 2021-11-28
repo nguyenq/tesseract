@@ -1,20 +1,20 @@
-A .NET wrapper for [tesseract-ocr] 4.1.1.
+A .NET wrapper for [tesseract-ocr] 4.1.3.
 
 ## Dependencies
 
-### Visual Studio 2019 x86 and x64 Runtimes 
+### Visual Studio 2022 x86 and x64 Runtimes 
 
-Since tesseract and leptonica binaries are compiled with Visual Studio 2019 you'll need to ensure you have the 
+Since tesseract and leptonica binaries are compiled with Visual Studio 2022 you'll need to ensure you have the 
 [Visual Studio 2019 Runtime][vs-runtime] installed.
 
 ### Tesseract language data
 
-You will also need to download the language data files for tesseract 4.1.0 from [tesseract-ocr].
+You will also need to download the language data files for tesseract 4.1.3 from [tesseract-ocr].
 
 ## Getting started quickly
 
 1. Add the ``Tesseract`` NuGet Package by running ``Install-Package Tesseract`` from the [Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console).
-2. Ensure you have Visual Studio 2019 x86 & x64 runtimes installed (see note above).
+2. Ensure you have Visual Studio 2022 x86 & x64 runtimes installed (see note above).
 3. Download language data files for tesseract 4.00 from the [tessdata repository](https://github.com/tesseract-ocr/tessdata_fast) and add them to your project, 
    ensure 'Copy to output directory' is set to Always.
 4. Check out the Samples solution ``~/src/Tesseract.Samples.sln`` in the [tesseract-samples](https://github.com/charlesw/tesseract-samples) repository for a working example.

@@ -1,4 +1,8 @@
-﻿### Version 4.1.1
+﻿### Version 4.1.3
+
+* Upgraded to Tesseract 4.1.3
+
+### Version 4.1.1
 
 * Upgraded to Tesseract 4.1.1 [Issue 528](https://github.com/charlesw/tesseract/issues/528)
 * Fixed Interop.TessApi.BaseApiGetVersion [Issue 522](https://github.com/charlesw/tesseract/issues/522)
