@@ -488,7 +488,6 @@ matcher_avg_noise_size	12	Avg. noise blob length
 matcher_clustering_max_angle_delta	0.015	Maximum angle delta for prototype clustering
 classify_misfit_junk_penalty	0	Penalty to apply when a non-alnum is vertically out of its expected textline position
 rating_scale	1.5	Rating scaling factor
-certainty_scale	20	Certainty scaling factor
 tessedit_class_miss_scale	0.00390625	Scale factor for features not used
 classify_adapted_pruning_factor	2.5	Prune poor adapted results this much worse than best result
 classify_adapted_pruning_threshold	-1	Threshold at which classify_adapted_pruning_factor starts
