@@ -530,11 +530,11 @@ language_model_penalty_chartype	0.3	Penalty for inconsistent character type
 language_model_penalty_font	0	Penalty for inconsistent font
 language_model_penalty_spacing	0.05	Penalty for inconsistent spacing
 language_model_penalty_increment	0.01	Penalty increment
-thresholding_window_size	0.33	Window size for measuring local statistics (to be multiplied by image DPI). This parameter is used by the Sauvola thresolding method
-thresholding_kfactor	0.34	Factor for reducing threshold due to variance. This parameter is used by the Sauvola thresolding method. Normal range: 0.2-0.5
-thresholding_tile_size	0.33	Desired tile size (to be multiplied by image DPI). This parameter is used by the LeptonicaOtsu thresolding method
-thresholding_smooth_kernel_size	0	Size of convolution kernel applied to threshold array (to be multiplied by image DPI). Use 0 for no smoothing. This parameter is used by the LeptonicaOtsu thresolding method
-thresholding_score_fraction	0.1	Fraction of the max Otsu score. This parameter is used by the LeptonicaOtsu thresolding method. For standard Otsu use 0.0, otherwise 0.1 is recommended
+thresholding_window_size	0.33	Window size for measuring local statistics (to be multiplied by image DPI). This parameter is used by the Sauvola thresholding method
+thresholding_kfactor	0.34	Factor for reducing threshold due to variance. This parameter is used by the Sauvola thresholding method. Normal range: 0.2-0.5
+thresholding_tile_size	0.33	Desired tile size (to be multiplied by image DPI). This parameter is used by the LeptonicaOtsu thresholding method
+thresholding_smooth_kernel_size	0	Size of convolution kernel applied to threshold array (to be multiplied by image DPI). Use 0 for no smoothing. This parameter is used by the LeptonicaOtsu thresholding method
+thresholding_score_fraction	0.1	Fraction of the max Otsu score. This parameter is used by the LeptonicaOtsu thresholding method. For standard Otsu use 0.0, otherwise 0.1 is recommended
 noise_cert_basechar	-8	Hingepoint for base char certainty
 noise_cert_disjoint	-1	Hingepoint for disjoint certainty
 noise_cert_punc	-3	Threshold for new punc char certainty
