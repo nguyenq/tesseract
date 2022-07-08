@@ -339,7 +339,7 @@ tessedit_train_from_boxes	0	Generate training data from boxed chars
 tessedit_make_boxes_from_boxes	0	Generate more boxes from boxed chars
 tessedit_train_line_recognizer	0	Break input into lines and remap boxes if present
 tessedit_dump_pageseg_images	0	Dump intermediate images made during page segmentation
-tessedit_do_invert	1	Try inverting the image in `LSTMRecognizeWord`
+tessedit_do_invert	1	Try inverted line image if necessary (deprecated, will be removed in release 6, use the 'invert_threshold' parameter instead)
 thresholding_debug	0	Debug the thresholding process
 tessedit_ambigs_training	0	Perform training for ambiguities
 tessedit_adaption_debug	0	Generate and print debug information for adaption
@@ -530,6 +530,7 @@ language_model_penalty_chartype	0.3	Penalty for inconsistent character type
 language_model_penalty_font	0	Penalty for inconsistent font
 language_model_penalty_spacing	0.05	Penalty for inconsistent spacing
 language_model_penalty_increment	0.01	Penalty increment
+invert_threshold	0.7	For lines with a mean confidence below this value, OCR is also tried with an inverted image
 thresholding_window_size	0.33	Window size for measuring local statistics (to be multiplied by image DPI). This parameter is used by the Sauvola thresholding method
 thresholding_kfactor	0.34	Factor for reducing threshold due to variance. This parameter is used by the Sauvola thresholding method. Normal range: 0.2-0.5
 thresholding_tile_size	0.33	Desired tile size (to be multiplied by image DPI). This parameter is used by the LeptonicaOtsu thresholding method

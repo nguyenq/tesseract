@@ -183,6 +183,35 @@ namespace Tesseract
             Initialise(datapath, language, engineMode, configFiles, initialOptions, setOnlyNonDebugVariables);
         }
 
+        /// <summary>
+        /// Creates a new instance of <see cref="TesseractEngine"/> with the specified <paramref name="engineMode"/> and <paramref name="configFiles"/>.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// The <paramref name="data"/> parameter. In-memory version reads the <c>traineddata</c> file 
+        /// directly from the given<c>data[data_size]</c> array. Also
+        /// implements the version with a <c>datapath</c> in <c>data</c>,
+        /// flagged by <c>data_size = 0</c> ..
+        /// </para>
+        /// </remarks>
+        /// <param name="data">In-memory representation of the <c>traineddata</c> file.</param>
+        /// <param name="data_size">Size of <c>data</c> array.</param>
+        /// <param name="language">The language to load, for example 'eng' for English.</param>
+        /// <param name="engineMode">The <see cref="EngineMode"/> value to use when initialising the tesseract engine.</param>
+        /// <param name="configFiles">
+        /// An optional sequence of tesseract configuration files to load, encoded using UTF8 without BOM
+        /// with Unix end of line characters you can use an advanced text editor such as Notepad++ to accomplish this.
+        /// </param>
+        public TesseractEngine(string data, int data_size, string language, EngineMode engineMode, IEnumerable<string> configFiles, IDictionary<string, object> initialOptions, bool setOnlyNonDebugVariables)
+        {
+            Guard.RequireNotNullOrEmpty("language", language);
+
+            DefaultPageSegMode = PageSegMode.Auto;
+            handle = new HandleRef(this, Interop.TessApi.Native.BaseApiCreate());
+
+            Initialise(data, data_size, language, engineMode, configFiles, initialOptions, setOnlyNonDebugVariables);
+        }
+
         public string Version
         {
             get
@@ -312,6 +341,33 @@ namespace Tesseract
             }
 
             if (Interop.TessApi.BaseApiInit(handle, datapath, language, (int)engineMode, configFiles ?? new List<string>(), initialValues ?? new Dictionary<string, object>(), setOnlyNonDebugVariables) != 0)
+            {
+                // Special case logic to handle cleaning up as init has already released the handle if it fails.
+                handle = new HandleRef(this, IntPtr.Zero);
+                GC.SuppressFinalize(this);
+
+                throw new TesseractException(ErrorMessage.Format(1, "Failed to initialise tesseract engine."));
+            }
+        }
+
+        private void Initialise(string data, int data_size, string language, EngineMode engineMode, IEnumerable<string> configFiles, IDictionary<string, object> initialValues, bool setOnlyNonDebugVariables)
+        {
+            Guard.RequireNotNullOrEmpty("language", language);
+
+            // do some minor processing on datapath to fix some common errors (this basically mirrors what tesseract does as of 3.04)
+            if (!String.IsNullOrEmpty(data))
+            {
+                // remove any excess whitespace
+                data = data.Trim();
+
+                // remove any trialing '\' or '/' characters
+                if (data.EndsWith("\\", StringComparison.Ordinal) || data.EndsWith("/", StringComparison.Ordinal))
+                {
+                    data = data.Substring(0, data.Length - 1);
+                }
+            }
+
+            if (Interop.TessApi.BaseApiInit5(handle, data, data_size, language, (int)engineMode, configFiles ?? new List<string>(), initialValues ?? new Dictionary<string, object>(), setOnlyNonDebugVariables) != 0)
             {
                 // Special case logic to handle cleaning up as init has already released the handle if it fails.
                 handle = new HandleRef(this, IntPtr.Zero);

@@ -20,7 +20,7 @@ namespace Tesseract.Tests
         {
             using (var engine = CreateEngine())
             {
-                Assert.That(engine.Version, Does.StartWith("5.1.0"));
+                Assert.That(engine.Version, Does.StartWith("5.2.0"));
             }
         }
 
@@ -135,7 +135,7 @@ namespace Tesseract.Tests
                         var text = page.GetText();
 
                         const string expectedText =
-                            "This is a lot of 12 point text to test the\nocr code and see if it works on all types\nof file format.\n\nThe quick brown dog jumped over the\nlazy fox. The quick brown dog jumped\nover the lazy fox. The quick brown dog\njumped over the lazy fox. The quick\nbrown dog jumped over the lazy fox.\n";
+                            "This is a lot of 12 point text to test the\nocr code and see if it works on all types\nof file format.\n\nThe quick brown dog jumped over the\n\nlazy fox. The quick brown dog jumped\nover the lazy fox. The quick brown dog\njumped over the lazy fox. The quick\nbrown dog jumped over the lazy fox.\n\n";
 
                         Assert.That(text, Is.EqualTo(expectedText));
                     }

@@ -191,13 +191,13 @@
     <None Include="..\Tesseract\x64\liblept1820.dll" Link="x64\liblept1820.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Tesseract\x64\libtesseract510.dll" Link="x64\libtesseract510.dll">
+    <None Include="..\Tesseract\x64\libtesseract520.dll" Link="x64\libtesseract520.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="..\Tesseract\x86\liblept1820.dll" Link="x86\liblept1820.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Tesseract\x86\libtesseract510.dll" Link="x86\libtesseract510.dll">
+    <None Include="..\Tesseract\x86\libtesseract520.dll" Link="x86\libtesseract520.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

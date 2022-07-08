@@ -111,6 +111,12 @@ namespace Tesseract.Interop
                                       string[] vars_vec, string[] vars_values, UIntPtr vars_vec_size,
                                       bool set_only_non_debug_params);
 
+        [RuntimeDllImport(Constants.TesseractDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "TessBaseAPIInit5")]
+        int BaseApiInit5(HandleRef handle, string data, int data_size, string language, int mode,
+                              string[] configs, int configs_size,
+                              string[] vars_vec, string[] vars_values, UIntPtr vars_vec_size,
+                              bool set_only_non_debug_params);
+
         [RuntimeDllImport(Constants.TesseractDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "TessBaseAPIMeanTextConf")]
         int BaseAPIMeanTextConf(HandleRef handle);
 
@@ -547,6 +553,44 @@ namespace Tesseract.Interop
             }
 
             return Native.BaseApiInit(handle, datapath, language, mode,
+                configFilesArray, configFilesArray.Length,
+                varNames, varValues, new UIntPtr((uint)varNames.Length), setOnlyNonDebugParams);
+        }
+
+        public static int BaseApiInit5(HandleRef handle, string data, int data_size, string language, int mode, IEnumerable<string> configFiles, IDictionary<string, object> initialValues, bool setOnlyNonDebugParams)
+        {
+            Guard.Require("handle", handle.Handle != IntPtr.Zero, "Handle for BaseApi, created through BaseApiCreate is required.");
+            Guard.RequireNotNullOrEmpty("language", language);
+            Guard.RequireNotNull("configFiles", configFiles);
+            Guard.RequireNotNull("initialValues", initialValues);
+
+            string[] configFilesArray = new List<string>(configFiles).ToArray();
+
+            string[] varNames = new string[initialValues.Count];
+            string[] varValues = new string[initialValues.Count];
+            int i = 0;
+            foreach (var pair in initialValues)
+            {
+                Guard.Require("initialValues", !String.IsNullOrEmpty(pair.Key), "Variable must have a name.");
+
+                Guard.Require("initialValues", pair.Value != null, "Variable '{0}': The type '{1}' is not supported.", pair.Key, pair.Value.GetType());
+                varNames[i] = pair.Key;
+                string varValue;
+                if (TessConvert.TryToString(pair.Value, out varValue))
+                {
+                    varValues[i] = varValue;
+                }
+                else
+                {
+                    throw new ArgumentException(
+                        String.Format("Variable '{0}': The type '{1}' is not supported.", pair.Key, pair.Value.GetType()),
+                        "initialValues"
+                    );
+                }
+                i++;
+            }
+
+            return Native.BaseApiInit5(handle, data, data_size, language, mode,
                 configFilesArray, configFilesArray.Length,
                 varNames, varValues, new UIntPtr((uint)varNames.Length), setOnlyNonDebugParams);
         }
