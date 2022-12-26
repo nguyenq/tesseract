@@ -1,12 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
-	  <DefineConstants>NET48;NETFULL</DefineConstants>
+	  <DefineConstants>NETCORE;NETSTANDARD;NETSTANDARD2_1</DefineConstants>
 	  <RootNamespace>Tesseract.Tests</RootNamespace>
-	  <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -21,20 +19,19 @@
     <Compile Include="..\Tesseract.Tests\AnalyseResultTests.cs" Link="AnalyseResultTests.cs" />
     <Compile Include="..\Tesseract.Tests\BaseApiTests.cs" Link="BaseApiTests.cs" />
     <Compile Include="..\Tesseract.Tests\EngineTests.cs" Link="EngineTests.cs" />
-    <Compile Include="..\Tesseract.Tests\Leptonica\BitmapHelperTests.cs" Link="Leptonica\BitmapHelperTests.cs" />
-    <Compile Include="..\Tesseract.Tests\Leptonica\ColorTests.cs" Link="Leptonica\ColorTests.cs" />
-    <Compile Include="..\Tesseract.Tests\Leptonica\ConvertBitmapToPixTests.cs" Link="Leptonica\ConvertBitmapToPixTests.cs" />
-    <Compile Include="..\Tesseract.Tests\Leptonica\LeptonicaPerformanceTests.cs" Link="Leptonica\LeptonicaPerformanceTests.cs" />
-    <Compile Include="..\Tesseract.Tests\Leptonica\LoadFromFileTests.cs" Link="Leptonica\LoadFromFileTests.cs" />
-    <Compile Include="..\Tesseract.Tests\Leptonica\PixATests.cs" Link="Leptonica\PixATests.cs" />
-    <Compile Include="..\Tesseract.Tests\Leptonica\PixTests\ImageManipulationTests.cs" Link="Leptonica\PixTests\ImageManipulationTests.cs" />
-    <Compile Include="..\Tesseract.Tests\Leptonica\PixTests\PixDataAccessTests.cs" Link="Leptonica\PixTests\PixDataAccessTests.cs" />
     <Compile Include="..\Tesseract.Tests\PageSerializer.cs" Link="PageSerializer.cs" />
     <Compile Include="..\Tesseract.Tests\ResultRendererTests.cs" Link="ResultRendererTests.cs" />
     <Compile Include="..\Tesseract.Tests\TesseractResultSet.cs" Link="TesseractResultSet.cs" />
     <Compile Include="..\Tesseract.Tests\TesseractTestBase.cs" Link="TesseractTestBase.cs" />
     <Compile Include="..\Tesseract.Tests\TestDifferenceHandler.cs" Link="TestDifferenceHandler.cs" />
     <Compile Include="..\Tesseract.Tests\TestRun.cs" Link="TestRun.cs" />
+    <Compile Include="..\Tesseract.Tests\Leptonica\BitmapHelperTests.cs" Link="Leptonica\BitmapHelperTests.cs" />
+    <Compile Include="..\Tesseract.Tests\Leptonica\ColorTests.cs" Link="Leptonica\ColorTests.cs" />
+    <Compile Include="..\Tesseract.Tests\Leptonica\ConvertBitmapToPixTests.cs" Link="Leptonica\ConvertBitmapToPixTests.cs" />
+    <Compile Include="..\Tesseract.Tests\Leptonica\LoadFromFileTests.cs" Link="Leptonica\LoadFromFileTests.cs" />
+    <Compile Include="..\Tesseract.Tests\Leptonica\PixATests.cs" Link="Leptonica\PixATests.cs" />
+    <Compile Include="..\Tesseract.Tests\Leptonica\PixTests\ImageManipulationTests.cs" Link="Leptonica\PixTests\ImageManipulationTests.cs" />
+    <Compile Include="..\Tesseract.Tests\Leptonica\PixTests\PixDataAccessTests.cs" Link="Leptonica\PixTests\PixDataAccessTests.cs" />
     <Compile Include="..\Tesseract.Tests\TestUtils.cs" Link="TestUtils.cs" />
   </ItemGroup>
 
@@ -48,6 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Tesseract.Drawing\Tesseract.Drawing.csproj" />
     <ProjectReference Include="..\Tesseract\Tesseract.csproj" />
   </ItemGroup>
 
@@ -162,7 +160,7 @@
     </None>
     <None Include="..\Tesseract.Tests\Results\EngineTests\CanGenerateUNLVOutput.txt" Link="Results\EngineTests\CanGenerateUNLVOutput.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </None>    
     <None Include="..\Tesseract.Tests\Results\EngineTests\CanPrintVariables.txt" Link="Results\EngineTests\CanPrintVariables.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -190,18 +188,18 @@
     <None Include="..\Tesseract.Tests\tessdata\pdf.ttf" Link="tessdata\pdf.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-	  <None Include="..\Tesseract\x64\libleptonica1830.dll" Link="x64\libleptonica1830.dll">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Include="..\Tesseract\x64\libtesseract530.dll" Link="x64\libtesseract530.dll">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Include="..\Tesseract\x86\libleptonica1830.dll" Link="x86\libleptonica1830.dll">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Include="..\Tesseract\x86\libtesseract530.dll" Link="x86\libtesseract530.dll">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
+    <None Include="..\Tesseract\x64\libleptonica1830.dll" Link="x64\libleptonica1830.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tesseract\x64\libtesseract530.dll" Link="x64\libtesseract530.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tesseract\x86\libleptonica1830.dll" Link="x86\libleptonica1830.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Tesseract\x86\libtesseract530.dll" Link="x86\libtesseract530.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
