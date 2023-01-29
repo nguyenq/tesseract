@@ -188,13 +188,13 @@
     <None Include="..\Tesseract.Tests\tessdata\pdf.ttf" Link="tessdata\pdf.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Tesseract\x64\libleptonica1830.dll" Link="x64\libleptonica1830.dll">
+    <None Include="..\Tesseract\x64\libleptonica1831.dll" Link="x64\libleptonica1831.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="..\Tesseract\x64\libtesseract530.dll" Link="x64\libtesseract530.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Tesseract\x86\libleptonica1830.dll" Link="x86\libleptonica1830.dll">
+    <None Include="..\Tesseract\x86\libleptonica1831.dll" Link="x86\libleptonica1831.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="..\Tesseract\x86\libtesseract530.dll" Link="x86\libtesseract530.dll">
