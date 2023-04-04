@@ -1,4 +1,4 @@
-A .NET wrapper for [tesseract-ocr] 5.3.0.
+A .NET wrapper for [tesseract-ocr] 5.3.2.
 
 ## Dependencies
 
@@ -27,7 +27,7 @@ Please create your pull requests to target the "develop" branch. "Master" is onl
 
 ## License
 
-Copyright 2012-2022 Charles Weld.
+Copyright 2012-2023 Charles Weld.
 
 Licensed under the [Apache License, Version 2.0][apache2] (the "License"); you
 may not use this software except in compliance with the License. You may obtain
