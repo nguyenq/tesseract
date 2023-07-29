@@ -20,7 +20,7 @@ namespace Tesseract.Tests
         {
             using (var engine = CreateEngine())
             {
-                Assert.That(engine.Version, Does.StartWith("5.3.1"));
+                Assert.That(engine.Version, Does.StartWith("5.3.2"));
             }
         }
 
