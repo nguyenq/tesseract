@@ -1,4 +1,8 @@
-﻿### Version 5.3.2
+﻿### Version 5.3.3
+
+* Upgraded to Tesseract 5.3.2
+ 
+### Version 5.3.2
 
 * Upgraded to Tesseract 5.3.1
 

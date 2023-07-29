@@ -15,8 +15,8 @@
     <PackageProjectUrl>https://github.com/charlesw/tesseract/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/charlesw/tesseract/</RepositoryUrl>
     <PackageTags>Tesseract Ocr</PackageTags>
-    <Version>5.3.2</Version>
-    <AssemblyVersion>5.3.2.0</AssemblyVersion>
+    <Version>5.3.3</Version>
+    <AssemblyVersion>5.3.3.0</AssemblyVersion>
     <NeutralLanguage></NeutralLanguage>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
