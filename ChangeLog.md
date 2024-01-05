@@ -1,4 +1,8 @@
-﻿### Version 5.3.3
+﻿### Version 5.3.3.1
+
+* Update Leptonica 1.84.1
+
+### Version 5.3.3
 
 * Upgraded to Tesseract 5.3.3
 

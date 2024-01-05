@@ -16,7 +16,7 @@
     <RepositoryUrl>https://github.com/charlesw/tesseract/</RepositoryUrl>
     <PackageTags>Tesseract Ocr</PackageTags>
     <Version>5.3.3</Version>
-    <AssemblyVersion>5.3.3.0</AssemblyVersion>
+    <AssemblyVersion>5.3.3.1</AssemblyVersion>
     <NeutralLanguage></NeutralLanguage>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
@@ -68,7 +68,7 @@
     <Content Include="x86\*.dll" Pack="true" PackageCopyToOutput="true" PackagePath="x86">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Remove="x86\libleptonica1831.dll" />
+    <Content Remove="x86\libleptonica1841.dll" />
     <Content Remove="x86\libtesseract533.dll" />
     <Content Include="Tesseract.targets" Pack="true" PackageCopyToOutput="true" PackagePath="build/">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
