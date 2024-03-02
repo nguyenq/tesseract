@@ -1,4 +1,4 @@
-A .NET wrapper for [tesseract-ocr] 5.3.3.1.
+A .NET wrapper for [tesseract-ocr] 5.3.4.
 
 ## Dependencies
 
@@ -9,7 +9,7 @@ Since tesseract and leptonica binaries are compiled with Visual Studio 2022 you'
 
 ### Tesseract language data
 
-You will also need to download the language data files for tesseract 5.3.3 from [tesseract-ocr].
+You will also need to download the language data files for tesseract 5.3.4 from [tesseract-ocr].
 
 ## Getting started quickly
 
@@ -27,7 +27,7 @@ Please create your pull requests to target the "develop" branch. "Master" is onl
 
 ## License
 
-Copyright 2012-2023 Charles Weld.
+Copyright 2012-2024 Charles Weld.
 
 Licensed under the [Apache License, Version 2.0][apache2] (the "License"); you
 may not use this software except in compliance with the License. You may obtain
