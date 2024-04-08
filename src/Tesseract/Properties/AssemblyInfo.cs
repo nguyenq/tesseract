@@ -16,5 +16,5 @@ using System.Runtime.InteropServices;
 // Ensure internals are visible to the test assembly so we can test them too.
 [assembly: InternalsVisibleTo("Tesseract.Net48Tests")]
 [assembly: InternalsVisibleTo("Tesseract.NetCore31Tests")]
-[assembly: InternalsVisibleTo("Tesseract.NetCore7Tests")]
+[assembly: InternalsVisibleTo("Tesseract.NetCore8Tests")]
 

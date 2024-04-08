@@ -16,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesseract.Net48Tests", "Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesseract.NetCore31Tests", "Tesseract.NetCore31Tests\Tesseract.NetCore31Tests.csproj", "{9367CCC0-77A5-4F7E-A266-22848B81C896}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesseract.NetCore7Tests", "Tesseract.NetCore7Tests\Tesseract.NetCore7Tests.csproj", "{7A3E99A2-7CBC-485D-BE10-42EAE9C22E47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesseract.NetCore8Tests", "Tesseract.NetCore8Tests\Tesseract.NetCore8Tests.csproj", "{7A3E99A2-7CBC-485D-BE10-42EAE9C22E47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
