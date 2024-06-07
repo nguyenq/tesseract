@@ -151,6 +151,19 @@ namespace Tesseract.Tests
             Assert.That(File.Exists(expectedOutputFilename), $"Expected an xml file \"{expectedOutputFilename}\" to have been created; but none was found.");
         }
 
+        [Test]
+        public void CanRenderResultsIntoPageFile()
+        {
+            var resultPath = TestResultRunFile(@"ResultRenderers\Page\phototest");
+            using (var renderer = ResultRenderer.CreatePageRenderer(resultPath))
+            {
+                var examplePixPath = TestFilePath("Ocr/phototest.tif");
+                ProcessFile(renderer, examplePixPath);
+            }
+
+            var expectedOutputFilename = Path.ChangeExtension(resultPath, "page.xml");
+            Assert.That(File.Exists(expectedOutputFilename), $"Expected a page.xml file \"{expectedOutputFilename}\" to have been created; but none was found.");
+        }
 
         [Test]
         public void CanRenderResultsIntoTsvFile()

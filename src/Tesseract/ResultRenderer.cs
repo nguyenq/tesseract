@@ -10,7 +10,7 @@ namespace Tesseract
     /// </summary>
     public enum RenderedFormat
     {
-        TEXT, HOCR, PDF, PDF_TEXTONLY, UNLV, BOX, ALTO, TSV, LSTMBOX, WORDSTRBOX
+        TEXT, HOCR, PDF, PDF_TEXTONLY, UNLV, BOX, ALTO, PAGE, TSV, LSTMBOX, WORDSTRBOX
     }
 
     /// <summary>
@@ -61,6 +61,9 @@ namespace Tesseract
                         break;
                     case RenderedFormat.ALTO:
                         renderer = CreateAltoRenderer(outputbase);
+                        break;
+                    case RenderedFormat.PAGE:
+                        renderer = CreatePageRenderer(outputbase);
                         break;
                     case RenderedFormat.TSV:
                         renderer = CreateTsvRenderer(outputbase);
@@ -134,6 +137,17 @@ namespace Tesseract
         public static IResultRenderer CreateAltoRenderer(string outputFilename)
         {
             return new AltoResultRenderer(outputFilename);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="IResultRenderer">result renderer</see> that render that generates a Page
+        /// file from tesseract's output.
+        /// </summary>
+        /// <param name="outputFilename">The path to the Page file to be created without the file extension.</param>
+        /// <returns></returns>
+        public static IResultRenderer CreatePageRenderer(string outputFilename)
+        {
+            return new PageResultRenderer(outputFilename);
         }
 
         /// <summary>
@@ -354,6 +368,15 @@ namespace Tesseract
         public AltoResultRenderer(string outputFilename)
         {
             var rendererHandle = Interop.TessApi.Native.AltoRendererCreate(outputFilename);
+            Initialise(rendererHandle);
+        }
+    }
+
+    public sealed class PageResultRenderer : ResultRenderer
+    {
+        public PageResultRenderer(string outputFilename)
+        {
+            var rendererHandle = Interop.TessApi.Native.PageRendererCreate(outputFilename);
             Initialise(rendererHandle);
         }
     }

@@ -57,7 +57,7 @@ namespace Tesseract.Interop
         IntPtr BaseApiGetAltoTextInternal(HandleRef handle, int pageNum);
 
         [RuntimeDllImport(Constants.TesseractDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "TessBaseAPIGetPAGEText")]
-        IntPtr BaseApiGetPAGETextInternal(HandleRef handle, int pageNum);
+        IntPtr BaseApiGetPageTextInternal(HandleRef handle, int pageNum);
 
         [RuntimeDllImport(Constants.TesseractDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "TessBaseAPIGetTsvText")]
         IntPtr BaseApiGetTsvTextInternal(HandleRef handle, int pageNum);
@@ -291,7 +291,7 @@ namespace Tesseract.Interop
         IntPtr AltoRendererCreate(string outputbase);
 
         [RuntimeDllImport(Constants.TesseractDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "TessPAGERendererCreate")]
-        IntPtr PAGERendererCreate(string outputbase);
+        IntPtr PageRendererCreate(string outputbase);
 
         [RuntimeDllImport(Constants.TesseractDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "TessTsvRendererCreate")]
         IntPtr TsvRendererCreate(string outputbase);
@@ -438,9 +438,9 @@ namespace Tesseract.Interop
             }
         }
 
-        public static string BaseAPIGetPAGEText(HandleRef handle, int pageNum)
+        public static string BaseAPIGetPageText(HandleRef handle, int pageNum)
         {
-            IntPtr txtHandle = Native.BaseApiGetPAGETextInternal(handle, pageNum);
+            IntPtr txtHandle = Native.BaseApiGetPageTextInternal(handle, pageNum);
             if (txtHandle != IntPtr.Zero)
             {
                 var result = MarshalHelper.PtrToString(txtHandle, Encoding.UTF8);
