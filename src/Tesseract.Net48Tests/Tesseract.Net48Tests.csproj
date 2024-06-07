@@ -39,12 +39,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="nunit" Version="3.14.0" />
+    <PackageReference Include="nunit" Version="4.1.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -193,13 +193,13 @@
 	  <None Include="..\Tesseract\x64\libleptonica1841.dll" Link="x64\libleptonica1841.dll">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Include="..\Tesseract\x64\libtesseract534.dll" Link="x64\libtesseract534.dll">
+	  <None Include="..\Tesseract\x64\libtesseract540.dll" Link="x64\libtesseract540.dll">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
 	  <None Include="..\Tesseract\x86\libleptonica1841.dll" Link="x86\libleptonica1841.dll">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Include="..\Tesseract\x86\libtesseract534.dll" Link="x86\libtesseract534.dll">
+	  <None Include="..\Tesseract\x86\libtesseract540.dll" Link="x86\libtesseract540.dll">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
   </ItemGroup>

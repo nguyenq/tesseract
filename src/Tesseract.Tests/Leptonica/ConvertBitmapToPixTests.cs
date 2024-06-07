@@ -130,9 +130,9 @@ namespace Tesseract.Tests.Leptonica
                     PixColor sourcePixel = bmp.GetPixel(x, y).ToPixColor();
                     PixColor destPixel = GetPixel(pix, x, y);
                     if (checkAlpha) {
-                        Assert.That(destPixel, Is.EqualTo(sourcePixel), "Expected pixel at <{0},{1}> to be same in both source and dest.", x, y);
+                        Assert.That(destPixel, Is.EqualTo(sourcePixel), $"Expected pixel at <{x},{y}> to be same in both source and dest.");
                     } else {
-                        Assert.That(destPixel, Is.EqualTo(sourcePixel).Using<PixColor>((c1, c2) => (c1.Red == c2.Red && c1.Blue == c2.Blue && c1.Green == c2.Green) ? 0 : 1), "Expected pixel at <{0},{1}> to be same in both source and dest.", x, y);
+                        Assert.That(destPixel, Is.EqualTo(sourcePixel).Using<PixColor>((c1, c2) => (c1.Red == c2.Red && c1.Blue == c2.Blue && c1.Green == c2.Green) ? 0 : 1), $"Expected pixel at <{x},{y}> to be same in both source and dest.");
                     }
                 }
             }

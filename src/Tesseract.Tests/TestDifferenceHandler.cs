@@ -27,7 +27,7 @@ namespace Tesseract.Tests
                 var expectedResult = TestUtils.NormaliseNewLine(File.ReadAllText(expectedResultFilename));
                 if (expectedResult != actualResult)
                 {
-                    Assert.Fail("Expected results to be \"{0}\" but was \"{1}\".", expectedResultFilename, actualResultFilename);
+                    Assert.Fail(string.Format("Expected results to be \"{0}\" but was \"{1}\".", expectedResultFilename, actualResultFilename));
                 }
             }
             else
@@ -63,7 +63,7 @@ namespace Tesseract.Tests
                     expectedResult = TestUtils.NormaliseNewLine(File.ReadAllText(expectedResultFilename));
                     if (expectedResult != actualResult)
                     {
-                        Assert.Fail("Expected results to be \"{0}\" but was \"{1}\".", expectedResultFilename, actualResultFilename);
+                        Assert.Fail(string.Format("Expected results to be \"{0}\" but was \"{1}\".", expectedResultFilename, actualResultFilename));
                     }
                 }
             }

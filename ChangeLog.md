@@ -1,4 +1,13 @@
-﻿### Version 5.3.4
+﻿### Version 5.4.0
+
+* Upgraded to Tesseract 5.4.0
+
+### Version 5.3.4.1
+
+* Upgraded from .NET 7 to .NET 8
+* Remove support for .NET 3.1
+
+### Version 5.3.4
 
 * Upgraded to Tesseract 5.3.4
 

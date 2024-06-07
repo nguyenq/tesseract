@@ -56,6 +56,9 @@ namespace Tesseract.Interop
         [RuntimeDllImport(Constants.TesseractDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "TessBaseAPIGetAltoText")]
         IntPtr BaseApiGetAltoTextInternal(HandleRef handle, int pageNum);
 
+        [RuntimeDllImport(Constants.TesseractDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "TessBaseAPIGetPAGEText")]
+        IntPtr BaseApiGetPAGETextInternal(HandleRef handle, int pageNum);
+
         [RuntimeDllImport(Constants.TesseractDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "TessBaseAPIGetTsvText")]
         IntPtr BaseApiGetTsvTextInternal(HandleRef handle, int pageNum);
 
@@ -85,6 +88,9 @@ namespace Tesseract.Interop
 
         [RuntimeDllImport(Constants.TesseractDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "TessBaseAPIGetThresholdedImage")]
         IntPtr BaseAPIGetThresholdedImage(HandleRef handle);
+
+        [RuntimeDllImport(Constants.TesseractDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "TessBaseAPIGetGradient")]
+        int BaseAPIGetGradient(HandleRef handle);
 
         // The following were causing issues on Linux/MacOsX when used in .net core
         //[RuntimeDllImport(Constants.TesseractDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "TessBaseAPIProcessPages")]
@@ -284,6 +290,9 @@ namespace Tesseract.Interop
         [RuntimeDllImport(Constants.TesseractDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "TessAltoRendererCreate")]
         IntPtr AltoRendererCreate(string outputbase);
 
+        [RuntimeDllImport(Constants.TesseractDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "TessPAGERendererCreate")]
+        IntPtr PAGERendererCreate(string outputbase);
+
         [RuntimeDllImport(Constants.TesseractDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "TessTsvRendererCreate")]
         IntPtr TsvRendererCreate(string outputbase);
 
@@ -425,6 +434,21 @@ namespace Tesseract.Interop
                 TessApi.Native.DeleteText(txtHandle);
                 return result;
             } else {
+                return null;
+            }
+        }
+
+        public static string BaseAPIGetPAGEText(HandleRef handle, int pageNum)
+        {
+            IntPtr txtHandle = Native.BaseApiGetPAGETextInternal(handle, pageNum);
+            if (txtHandle != IntPtr.Zero)
+            {
+                var result = MarshalHelper.PtrToString(txtHandle, Encoding.UTF8);
+                TessApi.Native.DeleteText(txtHandle);
+                return result;
+            }
+            else
+            {
                 return null;
             }
         }

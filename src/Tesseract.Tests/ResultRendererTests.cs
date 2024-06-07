@@ -248,7 +248,7 @@ namespace Tesseract.Tests
             using (var pixA = PixArray.LoadMultiPageTiffFromFile(filename)) {
                 int expectedPageNumber = -1;
                 using (renderer.BeginDocument(imageName)) {
-                    Assert.AreEqual(renderer.PageNumber, expectedPageNumber);
+                    Assert.That(renderer.PageNumber, Is.EqualTo(expectedPageNumber));
                     foreach (var pix in pixA) {
                         using (var page = _engine.Process(pix, imageName)) {
                             var addedPage = renderer.AddPage(page);
@@ -269,7 +269,7 @@ namespace Tesseract.Tests
             var imageName = Path.GetFileNameWithoutExtension(filename);
             using (var pix = Pix.LoadFromFile(filename)) {
                 using (renderer.BeginDocument(imageName)) {
-                    Assert.AreEqual(renderer.PageNumber, -1);
+                    Assert.That(renderer.PageNumber, Is.EqualTo(-1));
                     using (var page = _engine.Process(pix, imageName)) {
                         var addedPage = renderer.AddPage(page);
 
@@ -278,7 +278,7 @@ namespace Tesseract.Tests
                     }
                 }
 
-                Assert.AreEqual(renderer.PageNumber, 0);
+                Assert.That(renderer.PageNumber, Is.EqualTo(0));
             }
         }
 
@@ -290,7 +290,7 @@ namespace Tesseract.Tests
                 int expectedPageNumber = -1;
                 using (renderer.BeginDocument(imageName))
                 {
-                    Assert.AreEqual(renderer.PageNumber, expectedPageNumber);
+                    Assert.That(renderer.PageNumber, Is.EqualTo(expectedPageNumber));
                     foreach (var pix in pixA)
                     {
                         using (var page = _engine.Process(pix, imageName))

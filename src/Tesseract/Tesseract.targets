@@ -5,16 +5,16 @@
             <Link>x86\libleptonica1841.dll</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Include="$(MSBuildThisFileDirectory)\..\x86\libtesseract534.dll">
-            <Link>x86\libtesseract534.dll</Link>
+        <None Include="$(MSBuildThisFileDirectory)\..\x86\libtesseract540.dll">
+            <Link>x86\libtesseract540.dll</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Include="$(MSBuildThisFileDirectory)\..\x64\libleptonica1841.dll">
             <Link>x64\libleptonica1841.dll</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Include="$(MSBuildThisFileDirectory)\..\x64\libtesseract534.dll">
-            <Link>x64\libtesseract534.dll</Link>
+        <None Include="$(MSBuildThisFileDirectory)\..\x64\libtesseract540.dll">
+            <Link>x64\libtesseract540.dll</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>

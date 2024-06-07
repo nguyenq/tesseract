@@ -20,7 +20,7 @@ namespace Tesseract.Tests
         {
             using (var engine = CreateEngine())
             {
-                Assert.That(engine.Version, Does.StartWith("5.3.4"));
+                Assert.That(engine.Version, Does.StartWith("5.4.0"));
             }
         }
 
@@ -206,7 +206,7 @@ namespace Tesseract.Tests
                             Console.WriteLine(String.Format("Box[{0}]: x={1}, y={2}, w={3}, h={4}", i, box.X, box.Y, box.Width, box.Height));
                         }
 
-                        Assert.AreEqual(boxes.Count, expectedCount);
+                        Assert.That(boxes.Count, Is.EqualTo(expectedCount));
                     }
                 }
             }
@@ -535,7 +535,7 @@ TestUtils.NormaliseNewLine(@"</word></line>
                 if (engine.TryGetBoolVariable(VariableName, out result)) {
                     Assert.That(result, Is.EqualTo(variableValue));
                 } else {
-                    Assert.Fail("Failed to retrieve value for '{0}'.", VariableName);
+                    Assert.Fail(string.Format("Failed to retrieve value for '{0}'.", VariableName));
                 }
             }
         }
@@ -574,7 +574,7 @@ TestUtils.NormaliseNewLine(@"</word></line>
                 if (engine.TryGetDoubleVariable(variableName, out result)) {
                     Assert.That(result, Is.EqualTo(variableValue));
                 } else {
-                    Assert.Fail("Failed to retrieve value for '{0}'.", variableName);
+                    Assert.Fail(string.Format("Failed to retrieve value for '{0}'.", variableName));
                 }
             }
         }
@@ -593,7 +593,7 @@ TestUtils.NormaliseNewLine(@"</word></line>
                 if (engine.TryGetIntVariable(variableName, out result)) {
                     Assert.That(result, Is.EqualTo(variableValue));
                 } else {
-                    Assert.Fail("Failed to retrieve value for '{0}'.", variableName);
+                    Assert.Fail(string.Format("Failed to retrieve value for '{0}'.", variableName));
                 }
             }
         }
@@ -612,7 +612,7 @@ TestUtils.NormaliseNewLine(@"</word></line>
                 if (engine.TryGetStringVariable(variableName, out result)) {
                     Assert.That(result, Is.EqualTo(variableValue));
                 } else {
-                    Assert.Fail("Failed to retrieve value for '{0}'.", variableName);
+                    Assert.Fail(string.Format("Failed to retrieve value for '{0}'.", variableName));
                 }
             }
         }
