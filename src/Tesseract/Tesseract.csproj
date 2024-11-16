@@ -15,8 +15,8 @@
     <PackageProjectUrl>https://github.com/charlesw/tesseract/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/charlesw/tesseract/</RepositoryUrl>
     <PackageTags>Tesseract Ocr</PackageTags>
-    <Version>5.4.1</Version>
-    <AssemblyVersion>5.4.1.0</AssemblyVersion>
+    <Version>5.5.0</Version>
+    <AssemblyVersion>5.5.0.0</AssemblyVersion>
     <NeutralLanguage></NeutralLanguage>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
@@ -70,6 +70,7 @@
     </Content>
     <Content Remove="x86\libleptonica1850.dll" />
     <Content Remove="x86\libtesseract541.dll" />
+    <Content Remove="x86\libtesseract550.dll" />
     <Content Include="Tesseract.targets" Pack="true" PackageCopyToOutput="true" PackagePath="build/">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>

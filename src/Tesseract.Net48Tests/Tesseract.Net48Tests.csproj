@@ -193,13 +193,13 @@
 	  <None Include="..\Tesseract\x64\libleptonica1850.dll" Link="x64\libleptonica1850.dll">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Include="..\Tesseract\x64\libtesseract541.dll" Link="x64\libtesseract541.dll">
+	  <None Include="..\Tesseract\x64\libtesseract550.dll" Link="x64\libtesseract550.dll">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
 	  <None Include="..\Tesseract\x86\libleptonica1850.dll" Link="x86\libleptonica1850.dll">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Include="..\Tesseract\x86\libtesseract541.dll" Link="x86\libtesseract541.dll">
+	  <None Include="..\Tesseract\x86\libtesseract550.dll" Link="x86\libtesseract550.dll">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
   </ItemGroup>
