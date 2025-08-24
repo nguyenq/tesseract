@@ -78,6 +78,8 @@ namespace InteropDotNet
         {
             var baseDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             Logger.TraceInformation("Checking executing application domain location '{0}' for '{1}' on platform {2}.", baseDirectory, fileName, platformName);
+            if (string.IsNullOrEmpty(baseDirectory))
+                return IntPtr.Zero;
             return InternalLoadLibrary(baseDirectory, platformName, fileName);
         }
 
