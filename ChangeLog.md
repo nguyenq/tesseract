@@ -1,4 +1,8 @@
-﻿### Version 5.5.1.1
+﻿### Version 5.5.1.2
+
+* Updated Leptonica 1.87.0
+
+### Version 5.5.1.1
 
 * Updated Leptonica 1.86.0
 
