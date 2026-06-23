@@ -173,6 +173,8 @@ namespace Tesseract
         /// An optional sequence of tesseract configuration files to load, encoded using UTF8 without BOM
         /// with Unix end of line characters you can use an advanced text editor such as Notepad++ to accomplish this.
         /// </param>
+        /// <param name="initialOptions"></param>
+        /// <param name="setOnlyNonDebugVariables"></param>
         public TesseractEngine(string datapath, string language, EngineMode engineMode, IEnumerable<string> configFiles, IDictionary<string, object> initialOptions, bool setOnlyNonDebugVariables)
         {
             Guard.RequireNotNullOrEmpty("language", language);
@@ -202,6 +204,8 @@ namespace Tesseract
         /// An optional sequence of tesseract configuration files to load, encoded using UTF8 without BOM
         /// with Unix end of line characters you can use an advanced text editor such as Notepad++ to accomplish this.
         /// </param>
+        /// <param name="initialOptions"></param>
+        /// <param name="setOnlyNonDebugVariables"></param>
         public TesseractEngine(string data, int data_size, string language, EngineMode engineMode, IEnumerable<string> configFiles, IDictionary<string, object> initialOptions, bool setOnlyNonDebugVariables)
         {
             Guard.RequireNotNullOrEmpty("language", language);
