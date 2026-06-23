@@ -505,10 +505,11 @@ TestUtils.NormaliseNewLine(@"</word></line>
         [Test]
         public void Initialise_ShouldThrowErrorIfDatapathNotCorrect()
         {
-            Assert.That(() => {
+            Assert.That(new Action(() =>
+            {
                 using (var engine = new TesseractEngine(AbsolutePath(@"./IDontExist"), "eng", EngineMode.Default)) {
                 }
-            }, Throws.InstanceOf(typeof(TesseractException)));
+            }), Throws.InstanceOf(typeof(TesseractException)));
         }
 
         private static IEnumerable<string> DataPaths()
