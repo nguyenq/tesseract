@@ -44,6 +44,8 @@ textord_words_veto_power	5	Rows required to outvote a veto
 log_level	2147483647	Logging level
 textord_debug_printable	0	Make debug windows printable
 stream_filelist	0	Stream a filelist from stdin
+poly_debug	0	Debug old poly
+poly_wide_objects_better	1	More accurate approx on wide things
 textord_space_size_is_variable	0	If true, word delimiter spaces are assumed to have variable width, even though characters have fixed pitch.
 textord_tabfind_show_initial_partitions	0	Show partition bounds
 textord_tabfind_show_reject_blobs	0	Show blobs rejected as noise
@@ -89,8 +91,6 @@ textord_oldbl_merge_parts	1	Merge suspect partitions
 oldbl_corrfix	1	Improve correlation of heights
 oldbl_xhfix	0	Fix bug in modes threshold for xheights
 textord_ocropus_mode	0	Make baselines for ocropus
-poly_debug	0	Debug old poly
-poly_wide_objects_better	1	More accurate approx on wide things
 wordrec_display_all_blobs	0	Display Blobs
 wordrec_blob_pause	0	Blob pause
 wordrec_display_splits	0	Display splits

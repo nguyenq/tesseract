@@ -193,7 +193,7 @@
 	  <None Include="..\Tesseract\x64\libleptonica1870.dll" Link="x64\libleptonica1870.dll">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Include="..\Tesseract\x64\libtesseract552.dll" Link="x64\libtesseract552.dll">
+	  <None Include="..\Tesseract\x64\libtesseract553.dll" Link="x64\libtesseract553.dll">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
   </ItemGroup>
