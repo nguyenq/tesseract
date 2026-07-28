@@ -2,7 +2,7 @@ A .NET wrapper for [tesseract-ocr] 5.5.3.
 
 ## Dependencies
 
-### Visual Studio 2022 x86 and x64 Runtimes 
+### Visual Studio 2026 x64 Runtimes 
 
 Since tesseract and leptonica binaries are compiled with Visual Studio 2026 you'll need to ensure you have the 
 [Visual Studio 2026 Runtime][vs-runtime] installed.
