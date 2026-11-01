@@ -227,6 +227,8 @@ chop_seam_pile_size	150	Max number of seams in seam_pile
 chop_inside_angle	-50	Min Inside Angle Bend
 chop_min_outline_area	2000	Min Outline Area
 chop_centered_maxwidth	90	Width of (smaller) chopped blobs above which we don't care that a chop is not near the center.
+chop_max_seam_evals	200000	Max number of seam evaluations per word. Bounds the seam search on degenerate inputs where it never converges.
+chop_max_seam_evals_pass	500000	Max number of seam evaluations per recognition pass and per language (all words on one page, or all boxes of one ApplyBoxes call). Each language gets its own budget, so the worst case for a multilingual page is the number of languages times this value. The per-word seam evaluation budget (chop_max_seam_evals) is refreshed for every word, so a page with many degenerate words can take proportionally long in total; this cap bounds the total cost of the seam search over the whole pass. Read at the start of the pass; change it before Recognize() to take effect. A value changed with SetVariable() after Init() applies to the primary language only. 0 disables chopping.
 chop_x_y_weight	3	X / Y  length weight
 wordrec_debug_level	0	Debug level for wordrec
 wordrec_max_join_chunks	4	Max number of broken pieces to associate
